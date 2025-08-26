@@ -22,12 +22,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             DynamicUITheme {
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = "LoginScreen") {
+                NavHost(navController = navController, startDestination = "MainScreen") {
                     composable("LoginScreen") {
                         LoginScreen(navController)
                     }
                     composable("MainScreen") {
-                        MainScreen(navController)
+                        MainScreen()
                     }
                 }
             }
