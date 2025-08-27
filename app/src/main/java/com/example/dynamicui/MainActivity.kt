@@ -1,6 +1,5 @@
 package com.example.dynamicui
 
-import LoginScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.dynamicui.ui.theme.DynamicUITheme
+import com.example.dynamicui.ui.loginScreen.LoginScreen
 import com.example.dynamicui.ui.mainScreen.MainScreen
 
 class MainActivity : ComponentActivity() {
@@ -22,12 +22,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             DynamicUITheme {
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = "MainScreen") {
+                NavHost(navController = navController, startDestination = "LoginScreen") {
                     composable("LoginScreen") {
                         LoginScreen(navController)
                     }
                     composable("MainScreen") {
-                        MainScreen()
+                        MainScreen(navController)
                     }
                 }
             }
