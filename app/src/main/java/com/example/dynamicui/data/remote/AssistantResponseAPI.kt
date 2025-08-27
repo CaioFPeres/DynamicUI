@@ -12,7 +12,7 @@ import retrofit2.http.POST
 // specially when upload the code to a public repository.
 // Instead, one should use BuildConfig by setting a API variable at gradle.properties.
 // But I'm doing this way otherwise it would not run seemlessly (with one click).
-// getNews parameter should have: @Query("apiKey") apiKey: String = BuildConfig.API_KEY
+// getAssistantResponse parameter should have: @Query("X-goog-api-key") apiKey: String = BuildConfig.API_KEY
 interface AssistantResponseAPI {
     @POST("v1beta/models/gemini-2.0-flash:generateContent")
     fun getAssistantResponse(
