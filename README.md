@@ -33,7 +33,9 @@ All the examples below were tested, but the application is not limited to them. 
 # Running the project
 In order to execute the project, open it on Android Studio, assign an Android Virtual Device by going in `Tools -> Device Manager` and press the Run button. Or, generate an APK through `Build -> Generate App Bundles or APKs -> Generate APK` and install on your device.
 
-\
+<img src="firstScreen.png" alt="isolated" height=600 width="400"/> 
+
+
 #### Here is the folder structure of this project:
 ``` bash
 ├─📁 dynamicui
