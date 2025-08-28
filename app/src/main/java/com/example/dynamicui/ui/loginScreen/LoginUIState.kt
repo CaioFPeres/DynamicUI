@@ -10,17 +10,30 @@ sealed class LoginUiState {
     data class Error(val message: String) : LoginUiState()
 }
 
-data class UIAttributes (
-    var Title: String,
-    var textBox1: Dp,
-    var textBox2: Dp,
-    var background: String,
+data class Screens(
+    var loginScreen: LoginScreenAttrs,
+    var listScreen: MyListScreenAttrs?,
     var currentScreen: String
 )
 
-data class Screens (
-    var map: HashMap<String, String> = hashMapOf<String, String>(
-        "Login" to "LoginScreen",
-        "Main" to "MainScreen"
-    )
+data class MyListScreenAttrs (
+    var order: String
+)
+
+data class LoginScreenAttrs (
+    var title: Title,
+    var textBox1: TextBox,
+    var textBox2: TextBox,
+    var background: String,
+)
+
+data class TextBox(
+    var title: String,
+    var height: Dp,
+    var width: Dp
+)
+
+data class Title(
+    var title: String,
+    var fontSize: Float
 )

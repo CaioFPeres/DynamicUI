@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import org.koin.androidx.compose.koinViewModel
 import androidx.core.graphics.toColorInt
@@ -37,18 +38,18 @@ import androidx.core.graphics.toColorInt
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavHostController) {
-    val mainScreenViewModel: LoginScreenViewModel = koinViewModel()
-    val uiState by mainScreenViewModel.uiState.collectAsState()
-    val attrState by mainScreenViewModel.attrState.collectAsState()
+    val loginScreenViewModel: LoginScreenViewModel = koinViewModel()
+    val screens by loginScreenViewModel.screens.collectAsState()
+    val attrState = screens.loginScreen
 
     // State variables to hold user input
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var userInput by remember { mutableStateOf("") }
 
-    if(attrState.currentScreen != "Login") {
-        navController.navigate(attrState.currentScreen + "Screen")
-    }
+    if(screens.currentScreen != "Login")
+        navController.navigate(screens.currentScreen + "Screen")
+
     // UI layout
     Column(
         modifier = Modifier
@@ -65,8 +66,9 @@ fun LoginScreen(navController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = attrState.Title,
+                text = attrState.title.title,
                 style = MaterialTheme.typography.headlineMedium,
+                fontSize = attrState.title.fontSize.sp,
                 fontWeight = FontWeight.Bold
             )
 
@@ -75,9 +77,11 @@ fun LoginScreen(navController: NavHostController) {
             OutlinedTextField(
                 value = username,
                 onValueChange = { username = it },
-                label = { Text( "Username" ) },
+                label = { Text( attrState.textBox1.title ) },
                 singleLine = true,
-                modifier = Modifier.width(attrState.textBox1)
+                modifier = Modifier
+                    .height(attrState.textBox1.height)
+                    .width(attrState.textBox1.width)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -85,11 +89,13 @@ fun LoginScreen(navController: NavHostController) {
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text( "Password" ) },
+                label = { Text( attrState.textBox2.title ) },
                 singleLine = true,
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                modifier = Modifier.width(attrState.textBox2)
+                modifier = Modifier
+                    .height(attrState.textBox2.height)
+                    .width(attrState.textBox2.width)
             )
         }
         Row(
@@ -106,11 +112,11 @@ fun LoginScreen(navController: NavHostController) {
                     onValueChange = { userInput = it },
                     label = { Text("Any requests?") }
                 )
-                Spacer(modifier = Modifier.height(2.dp))
+                Spacer(modifier = Modifier.height(5.dp))
                 Button(
                     shape = RoundedCornerShape(4.dp),
                     modifier = Modifier.align(Alignment.CenterHorizontally),
-                    onClick = { mainScreenViewModel.fetchData(userInput) }) {
+                    onClick = { loginScreenViewModel.fetchData(userInput) }) {
                     Text("Make it happen!")
                 }
 
@@ -119,7 +125,7 @@ fun LoginScreen(navController: NavHostController) {
                 Button(
                     shape = RoundedCornerShape(4.dp),
                     modifier = Modifier.align(Alignment.CenterHorizontally),
-                    onClick = { mainScreenViewModel.resetUI() }) {
+                    onClick = { loginScreenViewModel.resetUI() }) {
                     Text("Reset!")
                 }
             }
