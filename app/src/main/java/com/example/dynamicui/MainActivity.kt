@@ -13,7 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.dynamicui.ui.theme.DynamicUITheme
 import com.example.dynamicui.ui.loginScreen.LoginScreen
-import com.example.dynamicui.ui.listScreen.MainScreen
+import com.example.dynamicui.ui.listScreen.ListScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,8 +26,8 @@ class MainActivity : ComponentActivity() {
                     composable("LoginScreen") {
                         LoginScreen(navController)
                     }
-                    composable("ListScreen") {
-                        MainScreen(navController)
+                    composable("UserListScreen") {
+                        ListScreen(navController)
                     }
                 }
             }

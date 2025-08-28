@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import android.util.Log
 import androidx.compose.ui.unit.dp
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
 
 
 class LoginScreenViewModel(
@@ -23,7 +24,7 @@ class LoginScreenViewModel(
     private val _screens = MutableStateFlow<Screens>(
         Screens(
             LoginScreenAttrs(
-                title = Title("News Login", 35f),
+                title = Title("Login", 35f),
                 textBox1 = TextBox("Username", 60.dp, 150.dp),
                 textBox2 = TextBox("Password", 60.dp, 150.dp),
                 background = "white",
@@ -35,14 +36,14 @@ class LoginScreenViewModel(
     val screens: StateFlow<Screens> = _screens
 
     init {
-        _fixedPrompt.value = "You are receiving the current UI state of a Jetpack Compose screen, and also a user input requesting changes to this UI. Please return the same json structure, with the correct changes requested. Don't add json formatting block! You can also approximate numbers:"
+        _fixedPrompt.value = "You are receiving the current UI state of a Jetpack Compose screen, and also a user input requesting changes to this UI. Please return the same json structure without formatting, with the correct changes requested. Don't use Markdown formatting! You can also approximate numbers:"
     }
 
     fun resetUI() {
         _screens.value =
             Screens(
                 LoginScreenAttrs(
-                    title = Title("News Login", 35f),
+                    title = Title("Login", 35f),
                     textBox1 = TextBox("Username", 60.dp, 150.dp),
                     textBox2 = TextBox("Password", 60.dp, 150.dp),
                     background = "white",
@@ -52,8 +53,8 @@ class LoginScreenViewModel(
             )
     }
 
-    private fun updateUI(json: Screens) {
-        _screens.value = json
+    private fun updateUI(jsonObject: Screens) {
+        _screens.value = jsonObject
     }
 
     fun fetchData(userInput: String) {
@@ -63,7 +64,7 @@ class LoginScreenViewModel(
 
                 Log.d("DEBUG", "Input: " + prompt)
                 val data = repository.getAssistantData(prompt)
-                Log.d("DEBUG", "Output: \n" + data.candidates.get(0).content.parts.get(0).text)
+                Log.d("DEBUG", "Output: \n" + gson.toJson(JsonParser().parse(data.candidates.get(0).content.parts.get(0).text)))
 
                 updateUI(gson.fromJson(data.candidates.get(0).content.parts.get(0).text, Screens::class.java))
             } catch (e: Exception) {

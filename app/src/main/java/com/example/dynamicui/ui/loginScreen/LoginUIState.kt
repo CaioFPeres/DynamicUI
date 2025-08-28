@@ -3,7 +3,7 @@ package com.example.dynamicui.ui.loginScreen
 import androidx.compose.ui.unit.Dp
 import model.AssistantResponse
 
-
+// Handling connection
 sealed class LoginUiState {
     data object Loading : LoginUiState()
     data class Success(val res: AssistantResponse) : LoginUiState()
@@ -12,7 +12,7 @@ sealed class LoginUiState {
 
 data class Screens(
     var loginScreen: LoginScreenAttrs,
-    var listScreen: MyListScreenAttrs?,
+    var userListScreen: MyListScreenAttrs?,
     var currentScreen: String
 )
 
