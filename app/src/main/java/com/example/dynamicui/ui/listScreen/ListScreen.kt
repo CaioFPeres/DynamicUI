@@ -1,6 +1,5 @@
 package com.example.dynamicui.ui.listScreen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -27,7 +26,7 @@ import org.koin.core.parameter.parametersOf
 
 
 @Composable
-fun MainScreen(navController: NavHostController) {
+fun ListScreen(navController: NavHostController) {
     val context = LocalContext.current
     val listScreenViewModel: ListScreenViewModel = koinViewModel { parametersOf(context) }
     val loginState by listScreenViewModel.loginState.collectAsState()
@@ -35,15 +34,17 @@ fun MainScreen(navController: NavHostController) {
 
     val arr = ArrayList<Long>()
 
-    Log.d("DEBUG", screens.value.currentScreen)
-    if(screens.value.currentScreen != "List")
+    if(screens.value.currentScreen != "UserList")
         navController.navigate(screens.value.currentScreen + "Screen")
 
     for( i in 0..<  7) {
-        arr.add(System.currentTimeMillis() + i * 435)
+        arr.add(System.currentTimeMillis() + (i * 435))
     }
 
-    if(screens.value.listScreen!!.order == "ascending" || screens.value.listScreen!!.order == "ordered")
+    if(screens.value.userListScreen!!.order == "ascending"
+        || screens.value.userListScreen!!.order == "ordered"
+        || screens.value.userListScreen!!.order == "normal"
+        || screens.value.userListScreen!!.order == "alphabetical")
         Column(
             modifier = Modifier
                 .padding(start = 60.dp, top = 100.dp)
@@ -119,24 +120,5 @@ fun RenderList(
                 .padding(5.dp),
             text = list[idx].toString()
         )
-    }
-}
-
-
-@Composable
-fun IdleScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                color = if(isSystemInDarkTheme())
-                            LightColorScheme.primary
-                        else
-                            DarkColorScheme.primary,
-            ),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        CircularProgressIndicator()
     }
 }
