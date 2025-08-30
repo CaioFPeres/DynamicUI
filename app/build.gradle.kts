@@ -16,6 +16,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        android.buildFeatures.buildConfig = true
+
+        // Add your API key here
+        buildConfigField("String", "API_KEY", "${property("API_KEY")}")
     }
 
     buildTypes {

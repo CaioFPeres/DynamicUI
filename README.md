@@ -2,7 +2,48 @@
 
 This is an Android project made with the goal of being able to change the UI elements through LLM prompts. It was made in the most generic way possible, so that the LLM can accept a range of different inputs that can achieve the same goal.
 
-The project is using the API key directly on the code, despite knowing that this is a security vulnerability. It was intentionally made this way in order to run seemlessly (with one click). But the correct way to use the API key in an Android project is to use BuildConfig by setting an API variable at gradle.properties.
+This project uses Gemini and requires the developer to use his own Gemini API key. Please update API_KEY value in gradle.properties with your Gemini API key.
+
+### UI Features that can be updated through prompts
+
+- First screen:
+    - App Title: Text and size
+    - Text boxes: height, width, label text (title)
+    - Background: known callable colors (red, black, blue, etc)
+
+- Second screen:
+    - Order of list elements: ascending, ordered, normal, alphabetical. Anything else is descending order.
+
+All of these features are controlled by converting to and from JSON objects.
+
+#### Here is the JSON representation of the above UI state:
+```json
+{
+    "currentScreen": "Login",
+    "loginScreen": {
+        "background": "white",
+        "textBox1": {
+            "height": 60.0,
+            "title": "Username",
+            "width": 150.0
+        },
+        "textBox2": {
+            "height": 60.0,
+            "title": "Password",
+            "width": 150.0
+        },
+        "title": {
+            "fontSize": 35.0,
+            "title": "Login"
+        }
+    },
+    "userListScreen": {
+        "order": "reverse"
+    }
+}
+```
+
+### Tested prompts
 
 All the examples below were tested, but the application is not limited to them. This also mean that depending on the input, the application can break, since security was not the focus of this project.
 
