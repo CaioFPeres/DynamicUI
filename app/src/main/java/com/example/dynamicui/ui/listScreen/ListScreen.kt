@@ -1,6 +1,5 @@
 package com.example.dynamicui.ui.listScreen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,8 +19,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.dynamicui.ui.loginScreen.LoginScreenViewModel
 import org.koin.androidx.compose.koinViewModel
-import com.example.dynamicui.ui.theme.DarkColorScheme
-import com.example.dynamicui.ui.theme.LightColorScheme
 import org.koin.core.parameter.parametersOf
 
 
@@ -47,7 +44,9 @@ fun ListScreen(navController: NavHostController) {
         || screens.value.userListScreen!!.order == "alphabetical")
         Column(
             modifier = Modifier
-                .padding(start = 60.dp, top = 100.dp)
+                .padding(top = 100.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
             for (i in 0..< arr.size)
@@ -56,7 +55,9 @@ fun ListScreen(navController: NavHostController) {
         }
     else
         Column(modifier = Modifier
-            .padding(start = 60.dp, top = 100.dp)
+            .padding(top = 100.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             for (i in arr.size - 1 downTo 0)
                 RenderList(arr, i)
@@ -68,7 +69,11 @@ fun ListScreen(navController: NavHostController) {
 fun RenderInput(loginState: LoginScreenViewModel){
     var userInput by remember { mutableStateOf("") }
 
-    Column() {
+    Column(
+        modifier = Modifier.padding(start = 60.dp, top = 30.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         OutlinedTextField(
             modifier = Modifier.width(300.dp),
             value = userInput,
